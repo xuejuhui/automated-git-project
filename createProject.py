@@ -15,14 +15,14 @@ def mkdir():
     """
     docstring
     """
-    folderName = str(sys.argv[1])
+    folder_name = str(sys.argv[1])
     cwd = os.getcwd()
-    path = os.path.join(cwd, folderName)
+    path = os.path.join(cwd, folder_name)
     if os.path.exists(path):
-        print(folderName + ' already exists')
+        print(folder_name + ' already exists')
     else:
         os.mkdir(path)
-        print("Directory '% s' created" % folderName)
+        print("Directory '% s' created" % folder_name)
         print(path)
 
 
@@ -30,12 +30,13 @@ def access_github(access_token):
     """
     docstring
     """
+    folder_name = str(sys.argv[1])
     g = Github(access_token)
-    for repo in g.get_user().get_repos():
-        print(repo.name)
+    repo = g.get_user().create_repo(folder_name)
+    repo.create_file("/README.md", "init commit", 'readmeText')
 
 
 if __name__ == "__main__":
-    # mkdir()
+    mkdir()
     access_github(github_access_token)
     print(github_access_token)
